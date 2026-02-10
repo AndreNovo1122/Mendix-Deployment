@@ -2,362 +2,366 @@
 Documentation about mendix deployment and mendix cloud
 # 📦 Mendix Deployment Package, Cloud Deployment & Control Center Guide
 
-Este documento explica, de forma clara e estruturada:
+This documentation provides a clear and structured overview of:
 
-- Como criar um **deployment package (.mda)** no Mendix  
-- Como publicar a aplicação na **Mendix Cloud**  
-- Como navegar e utilizar o **Mendix Control Center**  
-- Como gerir apps, licenças, ambientes, private cloud e Kubernetes  
-- Como monitorizar o estado da organização e das aplicações  
+- How to create a **deployment package (.mda)** in Mendix  
+- How to publish an application to the **Mendix Cloud**  
+- How to navigate and use the **Mendix Control Center**  
+- How to manage apps, licenses, environments, private cloud and Kubernetes  
+- How to monitor the health of your organization and applications  
 
 ---
 
-# 1. Criar um Deployment Package (MDA)
+# 1. Creating a Deployment Package (MDA)
 
-Um **deployment package (.mda)** é um ficheiro que contém tudo o que o Mendix precisa para correr a aplicação num servidor (on‑prem, Docker, Mendix Cloud, etc.).
+A **deployment package (.mda)** is a file that contains everything Mendix needs to run your application on a server (on‑prem, Docker, Mendix Cloud, etc.).
 
-## 🔹 Passos para criar o deployment package:
+## 🔹 Steps to create the deployment package:
 
-1. No Mendix Studio Pro, pressiona **F7**  
-   ou vai a:  
+1. In Mendix Studio Pro, press **F7**  
+   or go to:  
    **App → Create Deployment Package**
-<img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/f59781a7-fba1-4a80-a118-09cb7f6d4a14" />
 
-2. Abre-se uma janela de **versionamento**, onde defines:
-   - A versão do pacote  
-   - A tag de versionamento  
-   - (Opcional) Integração com pipelines CI/CD
-<img width="718" height="579" alt="image" src="https://github.com/user-attachments/assets/0a310e6f-f983-48f2-a066-fb4a9ba10960" />
+   <img width="1920" height="1032" alt="image" src="https://github.com/user-attachments/assets/f59781a7-fba1-4a80-a118-09cb7f6d4a14" />
 
-3. Clica em **OK**.
+2. A **versioning** window will appear, where you define:
+   - The package version  
+   - The version tag  
+   - (Optional) CI/CD pipeline integration  
 
-4. O Mendix gera o pacote e faz **download automático** do ficheiro `.mda`.
+   <img width="718" height="579" alt="image" src="https://github.com/user-attachments/assets/0a310e6f-f983-48f2-a066-fb4a9ba10960" />
+
+3. Click **OK**.
+
+4. Mendix will generate the package and automatically download the `.mda` file.
 
 ---
 
-# 2. Para que serve o Deployment Package?
+# 2. What Is the Deployment Package Used For?
 
-O ficheiro `.mda` pode ser usado para:
+The `.mda` file can be used for:
 
 - **On‑prem Mendix App Server**
-- **Imagem Docker do Mendix Runtime**
-- **Importar para outro ambiente Mendix Cloud**
-- **Ambientes ENSA / QA / PROD**
-- **Pipelines CI/CD que vão buscar o código ao repositório**
+- **Docker image of the Mendix Runtime**
+- **Importing into another Mendix Cloud environment**
+- **ENSA / QA / PROD environments**
+- **CI/CD pipelines that pull code from the repository**
 
-Este processo cria uma **build estável**, baseada no estado atual do repositório.
+This process creates a **stable build** of the application based on the current repository state.
 
-## ⚠️ Nota importante:
-Antes de criar o package, confirma que:
+## ⚠️ Important Notes:
+Before creating the package, ensure:
 
-- A **tag de versionamento** corresponde à versão do Mendix usada no projeto  
-- O projeto está limpo e sem erros  
+- The **version tag** matches the Mendix version used in the project  
+- The project is clean and error‑free  
 
 ---
 
-# 3. Publicar a App na Mendix Cloud
+# 3. Publishing the App to the Mendix Cloud
 
-Depois de criar o deployment package, podes publicar diretamente para a Mendix Cloud.
+After creating the deployment package, you can publish directly to the Mendix Cloud.
 
-## 🔹 Passos:
+## 🔹 Steps:
 
-1. No Studio Pro, clica em **Publish**  
-   (a app **não pode estar a correr**).
-<img width="760" height="458" alt="image" src="https://github.com/user-attachments/assets/c67a4d68-fd90-42fa-a9a4-df5791488a33" />
+1. In Studio Pro, click **Publish**  
+   (the app **must not be running**).
 
-2. Garante que estás **logado** com a conta Mendix correta.
+   <img width="760" height="458" alt="image" src="https://github.com/user-attachments/assets/c67a4d68-fd90-42fa-a9a4-df5791488a33" />
 
-3. O Mendix vai:
-   - Gerar dependências  
-   - Criar um pacote  
-   - Enviar o pacote para a Cloud  
-   - Fazer o deployment no ambiente selecionado  
+2. Make sure you are **logged in** with the correct Mendix account.
 
-4. Se tudo correr bem, aparece:  
+3. Mendix will:
+   - Generate dependencies  
+   - Create a package  
+   - Upload it to the Cloud  
+   - Deploy it to the selected environment  
+
+4. If everything goes well, you will see:  
    **“Your app is published!”**
 
 ---
 
-# 4. Alternativa: Botão da Nuvem (Cloud Icon)
+# 4. Alternative: Cloud Icon Button
 
-No canto superior direito do Studio Pro existe um ícone de **nuvem**.
+In the top‑right corner of Studio Pro, there is a **cloud icon**.
 
-Este botão faz o mesmo que o Publish:
+This button performs the same actions as Publish:
 
-- Gera o pacote  
-- Envia para a cloud  
-- Faz o deployment automático  
+- Generates the package  
+- Uploads it to the cloud  
+- Deploys automatically  
 
 ---
 
-# 5. Possíveis Erros e Como Resolver
+# 5. Common Errors and How to Fix Them
 
-## ❌ **Erro: “Something went wrong” ao publicar**
+## ❌ **Error: “Something went wrong” when publishing**
 <img width="392" height="148" alt="image" src="https://github.com/user-attachments/assets/cea50bb3-475c-4881-8d0c-9b2d6f97ef6a" />
 
-### 1. Falta de permissões
-Verifica se tens acesso à app em:  
+### 1. Missing permissions
+Check if you have access to the app:  
 **Mendix Portal → Apps → Company Apps**
 
-### 2. JDK configurado incorretamente
-Confirma o caminho em:  
+### 2. Incorrect JDK directory
+Verify the JDK path in:  
 **Edit → Preferences → JDK Directory**
 
-### 3. Security Mode incorreto
-Para publicar na cloud, o projeto tem de estar em:
+### 3. Wrong Security Mode
+To publish to the cloud, the project **must** be in:
 
 Project Security → Production Mode
 
 
-### 4. Erros no Error Console
-A app **não pode ter erros** antes de publicar.
+### 4. Errors in the Error Console
+The app **must not have any errors** before publishing.
 
 ---
+
 <img width="624" height="138" alt="image" src="https://github.com/user-attachments/assets/9fd4e184-9678-4b01-8437-2f8a1fee5f33" />
 
-# 6. Resumo do Processo
+# 6. Summary of the Process
 
-1. Criar deployment package (F7)  
-2. Confirmar versionamento e dependências  
-3. Verificar permissões e JDK  
-4. Ativar **Production Mode**  
-5. Garantir que não existem erros  
-6. Clicar em **Publish** ou no ícone da nuvem  
-7. Aguardar: **“Your app is published!”**
-
+1. Create the deployment package (F7)  
+2. Confirm versioning and dependencies  
+3. Verify permissions and JDK path  
+4. Enable **Production Mode**  
+5. Ensure there are no errors  
+6. Click **Publish** or the cloud icon  
+7. Wait for: **“Your app is published!”**
 
 <img width="539" height="222" alt="image" src="https://github.com/user-attachments/assets/588a790c-d043-4217-b723-5b0fd677c9ab" />
 
+---
+
+# 🧭 7. Mendix Control Center — Overview
+
+The **Control Center** is the central management dashboard for your Mendix organization.
+
+Here you can view:
+
+- Deployed apps  
+- Private cloud apps  
+- Licenses  
+- Users  
+- Cluster health  
+- Security  
+- Company‑level settings  
 
 ---
 
-# 🧭 7. Mendix Control Center — Visão Geral
+# 8. Mendix Cloud (Licensed Environments)
 
-O **Control Center** é o painel central de gestão da tua organização Mendix.
+Inside Control Center → **Mendix Cloud**, you can see:
 
-Aqui consegues ver:
+### 🔹 Running Apps
+Applications currently deployed and active.
 
-- Apps deployadas  
-- Apps em private cloud  
-- Licenças  
-- Utilizadores  
-- Estado dos clusters  
-- Segurança  
-- Configurações da empresa  
-
----
-
-# 8. Mendix Cloud (Ambientes Pagos)
-
-Dentro do Control Center → **Mendix Cloud**, consegues ver:
-
-### 🔹 Apps a correr (Running)
-Ambientes ativos com deploy.
-
-### 🔹 Apps não deployadas (Not Deployed)
-Nós criados mas sem deployment.
+### 🔹 Not Deployed
+Nodes created but without a deployment.
 
 ### 🔹 Private Cloud Apps
-Apps associadas à tua conta e deployadas em:
+Apps associated with your account and deployed on:
 
 - Azure  
 - AWS  
 - GCP  
-- Kubernetes clusters registados  
+- Registered Kubernetes clusters  
 
 ### 🔹 Connected Mode
-Se o cluster estiver registado e sincronizado:
+If the cluster is registered and synchronized:
 
-- CI/CD aparece integrado  
-- Logs e métricas disponíveis  
-- Deployments controlados pelo Mendix  
+- CI/CD integration becomes available  
+- Logs and metrics are visible  
+- Deployments can be controlled from Mendix  
 
 ---
 
 # 9. Cloud (All Apps)
 
-Mostra **todas as apps** lançadas pela tua organização.
+Shows **all applications** created by your organization.
 
-Se fores admin, consegues ver todas.
+Admins can see everything.
 
 ---
 
 # 10. Other Apps
 
-Apps que:
+Apps that:
 
-- Estão deployadas fora da Mendix Cloud  
-- Estão em private cloud  
-- Foram migradas para ambientes externos  
+- Are deployed outside Mendix Cloud  
+- Are running in private cloud  
+- Were migrated to external environments  
 
 ---
 
 # 11. Deactivated Apps
 
-Apps que foram:
+Apps that were:
 
-- Removidas do registo  
-- Desassociadas do repositório  
-- Arquivadas  
-- Migradas para private cloud  
+- Removed from the registry  
+- Detached from the repository  
+- Archived  
+- Migrated to private cloud  
 
 ---
 
 # 12. Health Dashboard
 
-Mostra o estado dos ambientes.
+Displays the health of environments.
 
-### Importante:
-- Isto **não monitoriza a app**  
-- Monitoriza o **cluster** (tipo Prometheus)  
-- Mostra:
-  - Erros críticos  
-  - Estado do nó  
-  - Disponibilidade  
+### Important:
+- This **does not monitor the app itself**  
+- It monitors the **cluster**, similar to Prometheus  
+- Shows:
+  - Critical errors  
+  - Node status  
+  - Availability  
 
 ---
 
 # 13. Deployed Apps Overview
 
-Mostra todas as apps deployadas.
+Shows all deployed applications.
 
 ### Free Apps
-- Estado  
+- Status  
 - App ID  
-- Último deployment  
+- Last deployment  
 
 ### Licensed Keys
-Apps que:
+Apps that:
 
-- Usam licenças pagas  
-- Estão em private cloud  
-- Precisam de license key se não estiverem em connected mode  
+- Use paid licenses  
+- Run in private cloud  
+- Require a license key if not in connected mode  
 
 ---
 
 # 14. People (Users & Permissions)
 
-Aqui consegues ver:
+Here you can see:
 
-- Todos os membros da organização  
-- Roles e permissões  
-- Quem pode fazer deployments  
-- Quem pode gerir ambientes  
+- All organization members  
+- Roles and permissions  
+- Who can deploy  
+- Who can manage environments  
 
-### Criar utilizadores
-É aqui que adicionas novos membros.
+### Creating users
+This is where new members are added.
 
 ---
 
 # 15. Company → Company Settings
 
-Configuras:
+Configure:
 
-- Domínios da empresa  
-- Políticas de segurança  
-- Configurações globais  
+- Company domains  
+- Security policies  
+- Global organization settings  
 
-### Nota:
-Só podes adicionar admins com email do domínio da empresa.
+### Note:
+Admins can only be added if their email matches the company domain.
 
 ---
 
 # 16. Company Dashboard
 
-Mostra:
+Shows:
 
-- Estado da licença  
-- Estado das apps  
-- Versões de Mendix usadas  
-- Histórico  
-- Segurança  
-- Apps deprecated  
+- License status  
+- App status  
+- Mendix versions used  
+- History of app creation  
+- Security  
+- Deprecated apps  
 
 ---
 
 # 17. Mendix Admins
 
-Mostra:
+Shows:
 
-- Quem tem permissões de deployment  
-- Quem é admin  
-- Quem pode gerir ambientes pagos  
+- Who has deployment permissions  
+- Who is an admin  
+- Who can manage licensed environments  
 
 ---
 
 # 18. Marketplace
 
-Permite:
+Allows you to:
 
-- Importar módulos  
-- Atualizar dependências  
-- Gerir componentes reutilizáveis  
+- Import modules  
+- Update dependencies  
+- Manage reusable components  
 
 ---
 
 # 19. Project Categories
 
-Permite organizar apps por:
+Organize apps by:
 
-- Equipa  
-- Cliente  
-- Departamento  
-- Tipo de projeto  
+- Team  
+- Client  
+- Department  
+- Project type  
 
 ---
 
-# 20. Apps Grid (Menu Superior → Apps)
+# 20. Apps Grid (Top Menu → Apps)
 
-Como admin, consegues:
+As an admin, you can:
 
-- Aceder a todas as apps  
-- Importar apps para o Studio Pro  
-- Ver detalhes, ambientes, permissões  
+- Access all apps  
+- Import apps into Studio Pro  
+- View details, environments, permissions  
 
 ---
 
 # 21. Deployment Section (Grid → Deployment)
 
-Aqui geres ambientes pagos.
+This is where licensed environments are managed.
 
-### Quando crias uma app com licença:
-- É criado um **nó**  
-- Esse nó é o local de deployment  
-- Tens de ter a licença ativa  
+### When you create a licensed app:
+- A **node** is created  
+- That node becomes the deployment target  
+- A valid license must be active  
 
-Depois importas a app para esse nó.
+You then import the app into that node.
 
 ---
 
 # 22. Mendix on Kubernetes (Private Cloud)
 
-Em **Mendix on Kubernetes**, consegues gerir clusters privados:
+In **Mendix on Kubernetes**, you can manage private clusters:
 
 - Azure AKS  
 - AWS EKS  
 - Google GKE  
 - Oracle Cloud  
-- Qualquer Kubernetes compatível  
+- Any Kubernetes‑compatible cluster  
 
 ### Cluster Manager
-Permite:
+Allows you to:
 
-- Registar clusters  
-- Ativar connected mode  
-- Integrar CI/CD  
-- Sincronizar com a conta Mendix  
+- Register clusters  
+- Enable connected mode  
+- Integrate CI/CD  
+- Synchronize with the Mendix account  
 
 ---
 
-# ✔️ Conclusão Geral
+# ✔️ Final Summary
 
-Com este guia consegues:
+With this guide you can:
 
-- Criar deployment packages (.mda)  
-- Publicar apps na Mendix Cloud  
-- Gerir apps, licenças e ambientes  
-- Administrar private cloud e Kubernetes  
-- Monitorizar a saúde dos clusters  
-- Controlar utilizadores e permissões  
-- Organizar e manter toda a infraestrutura Mendix  
+- Create deployment packages (.mda)  
+- Publish apps to the Mendix Cloud  
+- Manage apps, licenses and environments  
+- Administer private cloud and Kubernetes  
+- Monitor cluster health  
+- Control users and permissions  
+- Organize and maintain your entire Mendix infrastructure  
+
+
 
