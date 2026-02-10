@@ -1,0 +1,355 @@
+# 📚 Appendix A — Mendix Control Center Overview
+
+The **Control Center** is the central management dashboard for your Mendix organization.
+
+Here you can view:
+
+- Deployed apps  
+- Private cloud apps  
+- Licenses  
+- Users  
+- Cluster health  
+- Security  
+- Company‑level settings  
+
+---
+
+# Appendix B — Mendix Cloud (Licensed Environments)
+
+Inside Control Center → **Mendix Cloud**, you can see:
+
+### 🔹 Running Apps
+Applications currently deployed and active.
+
+### 🔹 Not Deployed
+Nodes created but without a deployment.
+
+### 🔹 Private Cloud Apps
+Apps associated with your account and deployed on:
+
+- Azure  
+- AWS  
+- GCP  
+- Registered Kubernetes clusters  
+
+### 🔹 Connected Mode
+If the cluster is registered and synchronized:
+
+- CI/CD integration becomes available  
+- Logs and metrics are visible  
+- Deployments can be controlled from Mendix  
+
+---
+
+# Appendix C — Other Cloud Views
+
+### **Cloud (All Apps)**
+Shows all applications created by your organization.
+
+### **Other Apps**
+Apps deployed outside Mendix Cloud or in private cloud.
+
+### **Deactivated Apps**
+Apps removed from the registry or migrated.
+
+---
+
+# Appendix D — Health Dashboard
+
+Displays the health of environments.
+
+- Monitors **cluster**, not app  
+- Shows:
+- Critical errors  
+- Node status  
+- Availability  
+
+---
+
+# Appendix E — People (Users & Permissions)
+
+Here you can see:
+
+- All organization members  
+- Roles and permissions  
+- Who can deploy  
+- Who can manage environments  
+
+---
+
+# Appendix F — Company Settings
+
+Configure:
+
+- Company domains  
+- Security policies  
+- Global organization settings  
+
+Admins can only be added if their email matches the company domain.
+
+---
+
+# Appendix G — Marketplace & Project Categories
+
+### Marketplace
+- Import modules  
+- Update dependencies  
+- Manage reusable components  
+
+### Project Categories
+Organize apps by:
+
+- Team  
+- Client  
+- Department  
+- Project type  
+
+---
+
+# Appendix H — Mendix on Kubernetes (Private Cloud)
+
+Manage private clusters:
+
+- Azure AKS  
+- AWS EKS  
+- Google GKE  
+- Oracle Cloud  
+- Any Kubernetes‑compatible cluster  
+
+### Cluster Manager
+- Register clusters  
+- Enable connected mode  
+- Integrate CI/CD  
+- Synchronize with Mendix  
+
+---
+
+# 🧭 7. Mendix Control Center — Overview
+
+The **Control Center** is the central management dashboard for your Mendix organization.
+
+Here you can view:
+
+- Deployed apps  
+- Private cloud apps  
+- Licenses  
+- Users  
+- Cluster health  
+- Security  
+- Company‑level settings  
+
+---
+
+# 8. Mendix Cloud (Licensed Environments)
+
+Inside Control Center → **Mendix Cloud**, you can see:
+
+### 🔹 Running Apps
+Applications currently deployed and active.
+
+### 🔹 Not Deployed
+Nodes created but without a deployment.
+
+### 🔹 Private Cloud Apps
+Apps associated with your account and deployed on:
+
+- Azure  
+- AWS  
+- GCP  
+- Registered Kubernetes clusters  
+
+### 🔹 Connected Mode
+If the cluster is registered and synchronized:
+
+- CI/CD integration becomes available  
+- Logs and metrics are visible  
+- Deployments can be controlled from Mendix  
+
+---
+
+# 9. Cloud (All Apps)
+
+Shows **all applications** created by your organization.
+
+Admins can see everything.
+
+---
+
+# 10. Other Apps
+
+Apps that:
+
+- Are deployed outside Mendix Cloud  
+- Are running in private cloud  
+- Were migrated to external environments  
+
+---
+
+# 11. Deactivated Apps
+
+Apps that were:
+
+- Removed from the registry  
+- Detached from the repository  
+- Archived  
+- Migrated to private cloud  
+
+---
+
+# 12. Health Dashboard
+
+Displays the health of environments.
+
+### Important:
+- This **does not monitor the app itself**  
+- It monitors the **cluster**, similar to Prometheus  
+- Shows:
+  - Critical errors  
+  - Node status  
+  - Availability  
+
+---
+
+# 13. Deployed Apps Overview
+
+Shows all deployed applications.
+
+### Free Apps
+- Status  
+- App ID  
+- Last deployment  
+
+### Licensed Keys
+Apps that:
+
+- Use paid licenses  
+- Run in private cloud  
+- Require a license key if not in connected mode  
+
+---
+
+# 14. People (Users & Permissions)
+
+Here you can see:
+
+- All organization members  
+- Roles and permissions  
+- Who can deploy  
+- Who can manage environments  
+
+### Creating users
+This is where new members are added.
+
+---
+
+# 15. Company → Company Settings
+
+Configure:
+
+- Company domains  
+- Security policies  
+- Global organization settings  
+
+### Note:
+Admins can only be added if their email matches the company domain.
+
+---
+
+# 16. Company Dashboard
+
+Shows:
+
+- License status  
+- App status  
+- Mendix versions used  
+- History of app creation  
+- Security  
+- Deprecated apps  
+
+---
+
+# 17. Mendix Admins
+
+Shows:
+
+- Who has deployment permissions  
+- Who is an admin  
+- Who can manage licensed environments  
+
+---
+
+# 18. Marketplace
+
+Allows you to:
+
+- Import modules  
+- Update dependencies  
+- Manage reusable components  
+
+---
+
+# 19. Project Categories
+
+Organize apps by:
+
+- Team  
+- Client  
+- Department  
+- Project type  
+
+---
+
+# 20. Apps Grid (Top Menu → Apps)
+
+As an admin, you can:
+
+- Access all apps  
+- Import apps into Studio Pro  
+- View details, environments, permissions  
+
+---
+
+# 21. Deployment Section (Grid → Deployment)
+
+This is where licensed environments are managed.
+
+### When you create a licensed app:
+- A **node** is created  
+- That node becomes the deployment target  
+- A valid license must be active  
+
+You then import the app into that node.
+
+---
+
+# 22. Mendix on Kubernetes (Private Cloud)
+
+In **Mendix on Kubernetes**, you can manage private clusters:
+
+- Azure AKS  
+- AWS EKS  
+- Google GKE  
+- Oracle Cloud  
+- Any Kubernetes‑compatible cluster  
+
+### Cluster Manager
+Allows you to:
+
+- Register clusters  
+- Enable connected mode  
+- Integrate CI/CD  
+- Synchronize with the Mendix account  
+
+---
+
+# ✔️ Final Summary
+
+With this guide you can:
+
+- Create deployment packages (.mda)  
+- Publish apps to the Mendix Cloud  
+- Manage apps, licenses and environments  
+- Administer private cloud and Kubernetes  
+- Monitor cluster health  
+- Control users and permissions  
+- Organize and maintain your entire Mendix infrastructure
