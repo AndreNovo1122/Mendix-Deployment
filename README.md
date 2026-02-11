@@ -251,25 +251,68 @@ Código
 
 ---
 
+
 # 7.6 Promoting from Acceptance to Production
 
-Licensed nodes support **environment promotion**.
+**Important:** Promotion from Acceptance to Production is **not guaranteed** to be a single automatic button in every Mendix tenant. Promotion is either **manual** (upload the same `.mda` to Production) or **automated via CI/CD**. Treat promotion as an operational step that may require manual intervention or a configured pipeline.
 
-### Steps:
+![imagem](https://github.com/user-attachments/assets/e9b9ea75-e944-40e9-9909-a1791eb25252)
 
-1. Deploy to **Acceptance**  
-2. Test the application  
-3. Go to:
-Environments → Acceptance → Transport to Production
+### Promotion Methods
 
-Código
+| Method | How it works | Requirements | Notes |
+|--------|--------------|--------------|-------|
+| **Manual upload to Production** | Upload the same `.mda` used in Acceptance directly to the Production environment (`App → Environments → Production → Deploy`). | Deploy permissions; the `.mda` artifact | Full control; recommended when you must guarantee the exact artifact. |
+| **Portal promotion (when available)** | Some tenants expose a **Promote** or **Transport to Production** action from the Acceptance environment. | Tenant must support this feature; deploy permissions | Not available in all tenants; verify in your tenant before relying on it. |
+| **Automated CI/CD** | Pipeline builds the `.mda` and deploys to Production using the Mendix Deploy API or CI/CD tools (GitHub Actions, Azure DevOps, Jenkins). | Deploy API credentials; Node ID; updated pipeline configuration | Recommended for repeatable production workflows; update pipelines if nodes are reassigned. |
 
-<img width="1791" height="783" alt="image" src="https://github.com/user-attachments/assets/a1261521-12f1-4285-b780-96edffd87712" />
+### Manual Promotion Steps
 
-4. Confirm the transport  
-5. The same MDA is deployed to Production
+1. **Confirm artifact consistency**  
+   - Ensure the `.mda` used in Acceptance is the same artifact you will deploy to Production.  
+2. **Generate or retrieve the `.mda`**  
+   - Build in Studio Pro (F7) or download the artifact used in Acceptance.  
+3. **Open the Portal**  
+   - Navigate to `App → Environments → Production`.  
+4. **Deploy**  
+   - Click **Deploy** and upload the `.mda`.  
+5. **Start and monitor**  
+   - Start the application and monitor logs, health checks, and startup messages.  
+6. **Have a rollback plan**  
+   - Prepare a rollback artifact or snapshot and document steps to revert if needed.
 
-This ensures **environment consistency**.
+### CI/CD Promotion Steps
+
+1. **Build**  
+   - Pipeline builds the `.mda`.  
+2. **Deploy**  
+   - Pipeline uses the Deploy API or configured actions to deploy to Production.  
+3. **Smoke tests**  
+   - Run automated smoke tests in Acceptance; on success, proceed to Production.  
+4. **Update pipeline secrets**  
+   - If nodes are reassigned, update Node ID, Deploy API credentials, and environment URLs in the pipeline.
+
+### Pitfalls and Recommendations
+
+- **Studio Pro publishes only to Acceptance** — it does not publish directly to Production.  
+- **Do not assume a Portal Promote button exists** — verify tenant capabilities.  
+- **Ensure artifact parity** — always deploy the same `.mda` to avoid environment drift.  
+- **Permissions** — Production deploys require appropriate roles (Technical Contact or deploy rights).  
+- **CI/CD updates** — reassigning nodes requires immediate updates to Node ID and credentials in pipelines.  
+- **Rollback readiness** — always have a tested rollback plan and backups before promoting.
+
+### Quick Pre‑Promotion Checklist
+
+- **Artifact**: `.mda` verified and checksum matched.  
+- **Permissions**: Deploy rights confirmed for the operator.  
+- **Environments**: Acceptance tests passed; health checks green.  
+- **Backups**: Database and configuration backups available.  
+- **CI/CD**: Pipelines updated with correct Node ID and credentials if needed.  
+- **Monitoring**: Logs and alerts configured for Production post‑deploy.  
+
+**Summary**  
+Promotion to Production is either **manual** (upload the `.mda`) or **automated via CI/CD**. The Portal may offer a Promote action in some tenants, but this is not universal — treat promotion as an operational step that must be planned and controlled.
+
 
 ---
 
