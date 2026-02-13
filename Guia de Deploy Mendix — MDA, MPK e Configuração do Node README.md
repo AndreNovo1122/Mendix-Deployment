@@ -1,161 +1,168 @@
-# Guia de Deploy Mendix — MDA, MPK e Configuração do Node
+# Guia de Deploy Mendix — MDA, MPK e Configuração de Node
 
-## 1. Quando o cliente envia um MDA (Mendix Deployment Archive)
-
-O **MDA** é o ficheiro usado para **deploy no Mendix Cloud**.  
-É o formato final, já preparado para correr num Node.
-
-### 1.1. Passos quando recebes um MDA
-
-1. **Validar o ficheiro**
-   - Confirmar nome, versão e integridade.
-
-2. **Entrar no Mendix Developer Portal**
-
-3. **Fazer upload do MDA**
-   - Navegar para: `Environments → Deploy → Upload Package`
-   - Selecionar o ficheiro `.mda`
-   - Confirmar o upload.
-
-4. **Link Node (associar o package ao ambiente)**
-   - Em `Environments`, escolher o ambiente.
-   - Em `Available Packages`, selecionar o package.
-   - Clicar em **Deploy**.
-
-5. **Start / Restart do ambiente**
-   - Clicar em **Start** (se estiver parado) ou **Restart**.
-   - Validar logs.
-   - Confirmar que a app arrancou corretamente.
-
-### 1.2. Resumo
-
-- O MDA já está pronto para deploy.
-- Não é necessário compilar, exportar ou alterar o projeto.
-- Fluxo: **Upload → Link → Deploy → Start**.
+Este guia documenta o processo completo de:
+- Importar um MPK no Mendix Studio Pro  
+- Criar um Deployment Package (MDA)  
+- Fazer deploy no Mendix Portal (Free Cloud ou Licensed Node)  
+- Configurar o Node após o deploy  
+- Entender as diferenças entre MDA e MPK  
 
 ---
 
-## 2. Quando o cliente envia um MPK (Mendix Project Package)
+# 1. Quando o cliente envia um MDA ou MPK
 
-O **MPK** é o ficheiro do **projeto Mendix**, não é um package de deploy.  
-É o equivalente ao “código-fonte”.
+Antes de começar, é essencial perceber a diferença:
 
-### 2.1. Passos quando recebes um MPK
-
-1. **Abrir o MPK no Mendix Studio Pro**
-   - Importa o projeto para o ambiente local.
-
-2. **Validar o projeto**
-   - Ver dependências.
-   - Ver erros de modelação.
-   - Ver configurações de ambiente.
-
-3. **Gerar o MDA**
-   - No Studio Pro: `App → Export Deployment Package`.
-   - Isto cria o ficheiro `.mda`.
-
-4. **Seguir o processo normal do MDA**
-   - **Upload → Link Node → Deploy → Start**.
-
-### 2.2. Resumo
-
-- O MPK **não pode ser deployado diretamente**.
-- É sempre necessário abrir no Studio Pro e gerar um **MDA**.
+| Tipo | Uso | Onde se abre | Para que serve |
+|------|------|--------------|----------------|
+| **MPK** | Código‑fonte | Mendix Studio Pro | Criar/editar projeto e gerar MDA |
+| **MDA** | Deployment Package | Mendix Portal | Fazer deploy no Node |
 
 ---
 
-## 3. Diferenças principais (MDA vs MPK)
+# 1.1. Passos quando recebes um **MPK**
 
-| Tipo | O que é              | Para que serve            | Pode ser deployado? | Passos necessários                                      |
-|------|----------------------|---------------------------|----------------------|---------------------------------------------------------|
-| MDA  | Deployment Archive   | Deploy no Mendix Cloud    | Sim                  | Upload → Link Node → Deploy                            |
-| MPK  | Project Package      | Código-fonte do projeto   | Não                  | Abrir no Studio Pro → Exportar MDA → Depois deploy MDA |
+### 1. Validar o ficheiro
+- Confirmar nome, versão e integridade.
 
 ---
 
-## 4. Passos seguintes no Node após o deploy do MDA
+### 2. Importar o MPK no Mendix Studio Pro  
+*(⚠️ Apenas MPK é importado aqui. MDA não se importa no Studio Pro.)*
 
-A partir do momento em que o MDA está carregado e associado ao Node, seguem-se os passos de configuração e validação do ambiente.
+File → Import App Package
 
-### 4.1. Confirmar que o package está ligado ao Node
+Código
 
-1. Ir a **Environments** no Mendix Developer Portal.
-2. Escolher o ambiente (por exemplo, *Acceptance* ou *Production*).
-3. Verificar em **Current Package** se está o MDA correto (nome + versão).
-
-### 4.2. Configurar Constants
-
-1. Dentro do ambiente, ir a **Model Options → Constants**.
-2. Preencher/validar os valores das constants (URLs, flags, chaves, etc.).
-3. Guardar as alterações.
-
-> Se as constants estiverem incorretas, a aplicação pode não arrancar ou comportar-se de forma errada.
-
-### 4.3. Configurar Scheduled Events
-
-1. Ir a **Model Options → Scheduled Events**.
-2. Ativar/desativar os eventos que devem correr neste ambiente.
-   - Exemplo: em Production alguns eventos correm, em Acceptance podem estar desligados.
-3. Guardar.
-
-### 4.4. Configurar Environment Variables / Custom Settings (se aplicável)
-
-1. Ir a **Runtime → Custom Settings** (ou equivalente, dependendo da versão).
-2. Adicionar/validar:
-   - URLs externas.
-   - Timeouts.
-   - Feature flags.
-   - Configurações específicas por ambiente.
-3. Guardar.
-
-### 4.5. Ver ligações a Base de Dados e Serviços Externos
-
-1. Confirmar configuração da **Database** (normalmente já está feita no Node).
-2. Validar se as constants/env vars que apontam para APIs externas estão corretas.
-3. Se necessário, alinhar com o cliente quais endpoints usar em cada ambiente.
-
-### 4.6. Start / Restart do Node
-
-1. No ambiente, clicar em **Start** (se estiver parado) ou **Restart**.
-2. Confirmar que o estado passa por algo como **Starting → Running**.
-3. Aguardar até o Node estar estável.
-
-### 4.7. Verificar Logs
-
-1. Ir à secção **Logs** do ambiente.
-2. Filtrar por nível (Info / Warning / Error).
-3. Verificar:
-   - Se não há erros críticos ao arrancar.
-   - Se as conexões a DB e serviços externos foram bem sucedidas.
-4. Se houver erros:
-   - Corrigir configurações (constants/env vars).
-   - Fazer novamente **Restart**.
-
-### 4.8. Validar a aplicação funcionalmente
-
-1. Abrir a URL do ambiente (link disponível no próprio ambiente).
-2. Fazer login (se aplicável).
-3. Testar:
-   - Ecrãs principais.
-   - Ações críticas (criar registos, pesquisar, etc.).
-   - Integrações chave (APIs, ficheiros, etc.).
-
-### 4.9. (Opcional) Monitorização e Backups
-
-1. Ver **Metrics** (CPU, memória, requests) para perceber se o Node está saudável.
-2. Confirmar política de **Backups** (automáticos, horários, retenção).
-3. Se for a primeira vez em produção, alinhar com o cliente janelas de manutenção e restart.
+![import](https://github.com/user-attachments/assets/d51167e6-ee1d-49d6-816b-59b4450f1561)
 
 ---
 
-## 5. Resumo em modo checklist
+### 3. Criar um Deployment Package (MDA)
+Após abrir o MPK:
 
-- [ ] Package correto ligado ao Node.  
-- [ ] Constants configuradas.  
-- [ ] Scheduled Events ajustados ao ambiente.  
-- [ ] Custom Settings / Env vars configuradas.  
-- [ ] Base de dados e integrações validadas.  
-- [ ] Node em estado **Running**.  
-- [ ] Logs sem erros críticos.  
-- [ ] Aplicação testada funcionalmente.
+App → Create Deployment Package
 
+ 
+
+![create1](https://github.com/user-attachments/assets/f6528716-ab77-4bc4-b01a-f6c411c84abd)
+![create2](https://github.com/user-attachments/assets/acd8350d-5d04-4df1-9d8c-37de677e8819)
+
+---
+
+# 1.2. Passos quando recebes um **MDA**
+
+Se o cliente já enviou o MDA → **não precisas do Studio Pro**.
+
+O processo é feito diretamente no Mendix Portal.
+
+---
+
+# 2. Fazer upload do MDA no Mendix Portal
+
+No Mendix Portal:
+
+App → Deployment → Environment → Deployment Packages → Upload Deployment Package
+
+ 
+
+![upload](https://github.com/user-attachments/assets/4fa49f68-e2e9-4d61-ab1b-64fb65a69198)
+![uploaded](https://github.com/user-attachments/assets/a40097f5-09cf-457c-9472-d91b6ca6bc28)
+
+---
+
+# 3. Aceder ao ambiente de produção
+
+App → Deployment → Environment → Production → Details
+
+ 
+
+![prod-details](https://github.com/user-attachments/assets/32b42ffc-afe9-4585-ab6b-060209b9f6dd)
+
+---
+
+# 4. (Opcional) Limpar ambiente
+
+Clear Environment → Clear Model and Database
+
+ 
+
+![clear1](https://github.com/user-attachments/assets/e8882842-aa4b-4030-be7c-bc0d3fb4627b)
+![clear2](https://github.com/user-attachments/assets/b7451248-84f4-4c66-b9bc-234a6d3a8a5a)
+
+---
+
+# 5. Selecionar o package para deploy
+
+Deployment → Production → Select Package
+
+ 
+
+![select-package](https://github.com/user-attachments/assets/5ba34c3a-00b4-4cf0-9cd4-c26c618fff37)
+![package-list](https://github.com/user-attachments/assets/2c5a6620-a6cb-4fae-a513-4eb8a0a63bef)
+
+---
+
+# 6. Configurar o ambiente (Constants, Scheduled Events)
+
+Se existirem constants, aparecem aqui:
+
+![constants](https://github.com/user-attachments/assets/8bc86fea-d7f3-481b-a314-b0cb4bade4a7)
+
+---
+
+# 7. Escolher tipo de promoção
+
+Opções:
+
+- **Staged** → aplica no próximo restart  
+- **Promote without backup** → quando não há dados a preservar  
+- **Take backup before promoting** → recomendado em produção  
+
+![promote1](https://github.com/user-attachments/assets/1be60d14-310f-4507-8a8c-995f908a5099)
+![promote2](https://github.com/user-attachments/assets/9511b60f-33b0-40e4-acf5-4b3edfc398f3)
+
+---
+
+# 8. Ver logs em tempo real
+
+Monitoring → Logs → View Live Log
+
+ 
+
+![logs1](https://github.com/user-attachments/assets/c5cb6711-3072-40a8-bf17-cdd3214c23b8)
+![logs2](https://github.com/user-attachments/assets/ab1d4144-17f4-4618-9cba-864683a6926d)
+![logs3](https://github.com/user-attachments/assets/0dc7ca30-f823-4fc5-a668-cebb88285ba9)
+
+Aguardar até o estado ficar:
+
+Promoted → Running
+
+ 
+
+![promoted](https://github.com/user-attachments/assets/a95e7ebc-225f-466a-a806-ecce8b93c3d3)
+
+---
+
+# 9. Validar a aplicação
+
+View App
+
+ 
+
+![view-app](https://github.com/user-attachments/assets/8c0fad19-a3cf-45f3-800b-6e69921b876d)
+![app-up](https://github.com/user-attachments/assets/e24c14f0-a6b7-4faf-a869-b32ced36696a)
+
+---
+
+# 10. Alterar password do administrador
+
+Environments → Production → Details → ⋮ → Change Admin Password
+
+ 
+
+![admin-pass1](https://github.com/user-attachments/assets/e605b8a2-581a-4d45-9eef-6f4e3c3dde7d)
+![admin-pass2](https://github.com/user-attachments/assets/a9e39db3-b75b-412f-8f70-f5a61adbe1dd)
+![login-test](https://github.com/user-attachments/assets/c260d410-f4d9-4cbf-8f01-6e298adb286e)
+
+---
